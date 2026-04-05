@@ -1,0 +1,54 @@
+<div id="emoji-bg" aria-hidden="true"></div>
+
+<style>
+	#emoji-bg {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		z-index: -1;
+		pointer-events: none;
+		user-select: none;
+		overflow: hidden;
+		opacity: 0.07;
+		line-height: 1.9;
+		font-size: 1.5rem;
+		letter-spacing: 0.15em;
+		word-spacing: 0.2em;
+	}
+</style>
+
+<script is:inline>
+(function () {
+	var emojis = ['🦥','🤖','💡','🧠','✨','💭','🧩'];
+	var el = document.getElementById('emoji-bg');
+	if (!el) return;
+
+	function fill() {
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		var cellW = 48;
+		var cellH = 48;
+		var cols = Math.ceil(w / cellW) + 2;
+		var rows = Math.ceil(h / cellH) + 2;
+		var parts = [];
+		for (var r = 0; r < rows; r++) {
+			var line = '';
+			for (var c = 0; c < cols; c++) {
+				line += emojis[(r * 3 + c) % emojis.length] + ' ';
+			}
+			parts.push(line);
+		}
+		el.textContent = parts.join('\n');
+		el.style.whiteSpace = 'pre';
+	}
+
+	fill();
+	var timer;
+	window.addEventListener('resize', function () {
+		clearTimeout(timer);
+		timer = setTimeout(fill, 150);
+	});
+})();
+</script>
