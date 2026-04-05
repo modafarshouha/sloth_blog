@@ -1,0 +1,31 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import SiteCitation from '../components/SiteCitation.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { withBase } from '../utils/path';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>{SITE_TITLE}</h1>
+			<p>
+				Posting slooooowly 🦥
+			</p>
+			<p>
+				<a href={withBase('blog/')}>Read the blog</a>
+				·
+				<a href={withBase('about/')}>About</a>
+			</p>
+			<SiteCitation url={new URL(withBase(''), Astro.site ?? 'https://modafarshouha.github.io/sloth_blog/').href} />
+		</main>
+		<Footer />
+	</body>
+</html>

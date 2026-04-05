@@ -1,0 +1,24 @@
+---
+import { COPYRIGHT_HOLDER } from '../consts';
+
+const year = new Date().getFullYear();
+---
+
+<footer>
+	<p>&copy; {year} {COPYRIGHT_HOLDER}. All rights reserved.</p>
+</footer>
+<style>
+	footer {
+		padding: 2rem 1rem;
+		margin-top: 2rem;
+		border-top: 1px solid rgb(var(--border));
+		color: rgb(var(--muted));
+		font-size: 0.9rem;
+		text-align: center;
+		background: var(--bg);
+		position: relative;
+	}
+	footer p {
+		margin: 0;
+	}
+</style>

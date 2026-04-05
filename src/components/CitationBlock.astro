@@ -1,0 +1,150 @@
+---
+import { AUTHOR_NAME, SITE_TITLE } from '../consts';
+
+interface Props {
+	title: string;
+	date: Date;
+	url: string;
+}
+
+const { title, date, url } = Astro.props;
+
+const year = date.getFullYear();
+const monthsFull = [
+	'January', 'February', 'March', 'April', 'May', 'June',
+	'July', 'August', 'September', 'October', 'November', 'December',
+];
+const monthsShort = [
+	'Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June',
+	'July', 'Aug.', 'Sep.', 'Oct.', 'Nov.', 'Dec.',
+];
+const month = monthsFull[date.getMonth()];
+const monthShort = monthsShort[date.getMonth()];
+const day = date.getDate();
+
+const lastParts = AUTHOR_NAME.split(' ');
+const lastName = lastParts[lastParts.length - 1];
+const firstInitial = lastParts[0][0] + '.';
+const firstNameFull = lastParts.slice(0, -1).join(' ');
+
+const apa = `${lastName}, ${firstInitial} (${year}, ${month} ${day}). ${title}. *${SITE_TITLE}*. ${url}`;
+const mla = `${lastName}, ${firstNameFull}. "${title}." *${SITE_TITLE}*, ${day} ${month} ${year}, ${url}.`;
+const ieee = `${firstInitial} ${lastName}, "${title}," *${SITE_TITLE}*, ${monthShort} ${day}, ${year}. [Online]. Available: ${url}`;
+
+const bibKey = title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 40);
+const bibtex = `@misc{${bibKey},
+  author = {${AUTHOR_NAME}},
+  title  = {${title}},
+  year   = {${year}},
+  month  = {${monthShort.replace('.', '').toLowerCase()}},
+  url    = {${url}},
+  note   = {Blog post on ${SITE_TITLE}}
+}`;
+---
+
+<details class="citation-block">
+	<summary>Cite this post</summary>
+	<div class="citation-formats">
+		<div class="citation-entry">
+			<span class="citation-label">APA</span>
+			<pre class="citation-text" id="cite-apa">{apa}</pre>
+			<button class="citation-copy" data-target="cite-apa" aria-label="Copy APA citation">Copy</button>
+		</div>
+		<div class="citation-entry">
+			<span class="citation-label">MLA</span>
+			<pre class="citation-text" id="cite-mla">{mla}</pre>
+			<button class="citation-copy" data-target="cite-mla" aria-label="Copy MLA citation">Copy</button>
+		</div>
+		<div class="citation-entry">
+			<span class="citation-label">IEEE</span>
+			<pre class="citation-text" id="cite-ieee">{ieee}</pre>
+			<button class="citation-copy" data-target="cite-ieee" aria-label="Copy IEEE citation">Copy</button>
+		</div>
+		<div class="citation-entry">
+			<span class="citation-label">BibTeX</span>
+			<pre class="citation-text" id="cite-bibtex">{bibtex}</pre>
+			<button class="citation-copy" data-target="cite-bibtex" aria-label="Copy BibTeX citation">Copy</button>
+		</div>
+	</div>
+</details>
+
+<script is:inline>
+	document.addEventListener('click', function (e) {
+		var btn = e.target.closest('.citation-copy');
+		if (!btn) return;
+		var id = btn.getAttribute('data-target');
+		var el = document.getElementById(id);
+		if (!el) return;
+		navigator.clipboard.writeText(el.textContent.trim()).then(function () {
+			var original = btn.textContent;
+			btn.textContent = 'Copied!';
+			setTimeout(function () { btn.textContent = original; }, 1500);
+		});
+	});
+</script>
+
+<style>
+	.citation-block {
+		margin-top: 2.5rem;
+		border: 1px solid rgb(var(--border));
+		border-radius: 6px;
+		background: var(--surface);
+	}
+	.citation-block summary {
+		cursor: pointer;
+		padding: 0.75rem 1rem;
+		font-weight: 600;
+		font-size: 0.95rem;
+		color: rgb(var(--black));
+		user-select: none;
+	}
+	.citation-block summary:hover {
+		color: var(--accent);
+	}
+	.citation-formats {
+		padding: 0 1rem 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.citation-entry {
+		position: relative;
+	}
+	.citation-label {
+		display: inline-block;
+		font-size: 0.75rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		color: rgb(var(--muted));
+		margin-bottom: 0.25rem;
+	}
+	.citation-text {
+		margin: 0;
+		padding: 0.6rem 0.75rem;
+		padding-right: 4rem;
+		background: rgb(var(--gray-light));
+		border-radius: 4px;
+		font-size: 0.8rem;
+		line-height: 1.5;
+		white-space: pre-wrap;
+		word-break: break-word;
+		color: rgb(var(--gray-dark));
+	}
+	.citation-copy {
+		position: absolute;
+		top: 1.6rem;
+		right: 0.5rem;
+		padding: 0.2rem 0.5rem;
+		font-size: 0.75rem;
+		border: 1px solid rgb(var(--border));
+		border-radius: 4px;
+		background: var(--surface);
+		color: rgb(var(--muted));
+		cursor: pointer;
+	}
+	.citation-copy:hover {
+		color: var(--accent);
+		border-color: var(--accent);
+	}
+</style>

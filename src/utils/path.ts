@@ -1,0 +1,6 @@
+/** Prefix a path with Astro `base` for GitHub Pages project sites. */
+export function withBase(path: string): string {
+	const base = import.meta.env.BASE_URL;
+	const normalized = path.startsWith('/') ? path.slice(1) : path;
+	return `${base}${normalized}`;
+}

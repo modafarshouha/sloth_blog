@@ -1,0 +1,51 @@
+Copyright (c) 2026 Modafar Al-Shouha.
+
+This repository contains two categories of material, each governed by different terms.
+
+
+1. SOURCE CODE, CONFIGURATION, AND ASSETS
+
+   "Code" refers to all source code, templates, stylesheets, configuration files, build
+   scripts, SQL schemas, workflow definitions, images, fonts, and any other non-blog-post
+   material in this repository.
+
+   All rights are reserved. You may NOT:
+
+   - copy, reproduce, or redistribute the Code in any medium or form;
+   - create derivative works based on the Code;
+   - use the Code for commercial or non-commercial purposes;
+   - fork, mirror, or republish the Code in whole or in part;
+   - sublicense or transfer any rights to the Code.
+
+   No license — express or implied — is granted to any patent, trademark, or other
+   intellectual property right embodied in the Code.
+
+
+2. BLOG CONTENT
+
+   "Blog Content" refers to the written prose published as blog posts (files under
+   src/content/blog/ and their rendered output on the public website).
+
+   Blog Content may be quoted, referenced, and shared for personal, educational, or
+   journalistic purposes, provided that ALL of the following conditions are met:
+
+   a. Proper attribution is given to the author (Modafar Al-Shouha) and the blog
+      (Inside Out Ideas).
+   b. A citation is included that names the author, the post title, the publication
+      date, and the canonical URL. Each post provides ready-made citations in APA,
+      MLA, IEEE, and BibTeX formats.
+   c. The use constitutes fair use or fair dealing under applicable law; wholesale
+      reproduction of a post is not permitted without written permission.
+
+   Blog Content may NOT be used to train machine-learning or AI models without prior
+   written consent from the author.
+
+
+DISCLAIMER
+
+THE SOFTWARE AND CONTENT ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES,
+OR OTHER LIABILITY ARISING FROM THE USE OF THIS REPOSITORY OR ITS CONTENTS.
+
+
+For permissions beyond the above, contact the copyright holder directly.

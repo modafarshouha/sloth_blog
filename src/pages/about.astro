@@ -1,0 +1,23 @@
+---
+import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="About"
+	description="About this site."
+	pubDate={new Date('2026-01-05')}
+	heroImage={AboutHeroImage}
+>
+	<p>
+		Ph.D. in Computer Engineering · AI &amp; ML Researcher · Software Engineer at Nokia.
+	</p>
+	<p>
+		My research spans trustworthy, explainable, and robust AI, with a recent focus on
+		embodied agents, evolutionary pressures in training, and artificial consciousness.
+	</p>
+	<p>
+		To know more about me, visit my
+		<a href="https://modafarshouha.github.io/modafarshouha/" target="_blank" rel="noopener">personal profile</a>.
+	</p>
+</Layout>

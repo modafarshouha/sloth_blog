@@ -1,0 +1,100 @@
+---
+interface Props {
+	slug: string;
+}
+
+const { slug } = Astro.props;
+const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
+const supabaseKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+const enabled = Boolean(supabaseUrl && supabaseKey);
+---
+
+{
+	enabled && (
+		<p class="post-read-stats" id="post-read-stats" aria-live="polite">
+			<span class="post-read-stats__label">Reads</span>
+			<span id="post-read-total">—</span>
+			<span class="post-read-stats__sep" aria-hidden="true">
+				·
+			</span>
+			<span class="post-read-stats__label">Unique</span>
+			<span id="post-read-unique">—</span>
+		</p>
+	)
+}
+
+{
+	enabled && (
+		<script is:inline define:vars={{ slug, supabaseUrl, supabaseKey }}>
+			(function () {
+				if (window.__postReadStatsFired) return;
+				window.__postReadStatsFired = true;
+
+				const storageKey = 'blog_visitor_id';
+				let visitorId = localStorage.getItem(storageKey);
+				if (!visitorId) {
+					visitorId = crypto.randomUUID();
+					localStorage.setItem(storageKey, visitorId);
+				}
+
+				const headers = {
+					apikey: supabaseKey,
+					Authorization: 'Bearer ' + supabaseKey,
+					'Content-Type': 'application/json',
+					Prefer: 'return=minimal',
+				};
+
+				const rpc = supabaseUrl.replace(/\/$/, '') + '/rest/v1/rpc/record_post_read';
+				const statsUrl =
+					supabaseUrl.replace(/\/$/, '') +
+					'/rest/v1/blog_post_views?slug=eq.' +
+					encodeURIComponent(slug) +
+					'&select=read_count,unique_read_count';
+
+				function setText(id, value) {
+					const el = document.getElementById(id);
+					if (el) el.textContent = String(value);
+				}
+
+				fetch(rpc, {
+					method: 'POST',
+					headers,
+					body: JSON.stringify({ p_slug: slug, p_visitor_id: visitorId }),
+				})
+					.then(function (r) {
+						if (!r.ok) throw new Error('rpc failed');
+						return fetch(statsUrl, { headers: { apikey: supabaseKey, Authorization: 'Bearer ' + supabaseKey } });
+					})
+					.then(function (r) {
+						if (!r.ok) throw new Error('stats failed');
+						return r.json();
+					})
+					.then(function (rows) {
+						const row = rows[0];
+						if (!row) return;
+						setText('post-read-total', row.read_count);
+						setText('post-read-unique', row.unique_read_count);
+					})
+					.catch(function () {
+						setText('post-read-total', '—');
+						setText('post-read-unique', '—');
+					});
+			})();
+		</script>
+	)
+}
+
+<style>
+	.post-read-stats {
+		margin: 0 0 1.25rem;
+		font-size: 0.9rem;
+		color: rgb(var(--muted));
+	}
+	.post-read-stats__label {
+		margin-right: 0.35rem;
+	}
+	.post-read-stats__sep {
+		margin: 0 0.5rem;
+		opacity: 0.6;
+	}
+</style>
