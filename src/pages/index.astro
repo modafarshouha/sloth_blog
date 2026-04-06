@@ -12,16 +12,38 @@ import { withBase } from '../utils/path';
 <html lang="en">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			.home h1 {
+				margin-bottom: 0.75rem;
+			}
+			.home .intro {
+				margin: 0 0 1.75rem;
+				color: rgb(var(--gray-dark));
+				line-height: 1.7;
+			}
+			.home .tagline {
+				margin: 0 0 2rem;
+				font-size: 1.5rem;
+				color: rgb(var(--muted));
+				opacity: 0.68;
+			}
+			.home .actions {
+				margin: 0 0 1rem;
+			}
+		</style>
 	</head>
 	<body>
 		<EmojiBackground />
 		<Header />
-		<main>
+		<main class="home">
 			<h1>{SITE_TITLE}</h1>
-			<p>
+			<p class="intro">
+				Here, I write about topics that I'm interested in and questions I'm trying to answer; often around AI and human experience. I aim to be accurate and grounded in sources where I can, but some parts stay speculative, thought-provoking, and open-ended.
+			</p>
+			<p class="tagline">
 				Posting slooooowly 🦥
 			</p>
-			<p>
+			<p class="actions">
 				<a href={withBase('blog/')}>Read the blog</a>
 				·
 				<a href={withBase('about/')}>About</a>

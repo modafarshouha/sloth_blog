@@ -1,6 +1,6 @@
 # Inside Out Ideas
 
-A minimal personal blog built with [Astro](https://astro.build/) and deployed on [GitHub Pages](https://pages.github.com/), with optional per-post read analytics backed by [Supabase](https://supabase.com/).
+In this blog I write about topics that I'm interested in and questions I’m trying to answer; often around AI and human experience. I aim to be accurate and grounded in sources where I can, but some parts stay speculative, thought-provoking, and open-ended.
 
 ## Documentation
 
