@@ -4,17 +4,6 @@ description: 'LLMs, System 1 vs 2, and why extra reasoning steps are still mimic
 pubDate: '18 May 2026'
 ---
 
-<!--
-Social / promo blurb:
-When I wrote this post I was choosing words on purpose. That's slow, effortful thinking.
-
-LLMs still race ahead: one token after another. It feels like intuition.
-
-We can make LLMs "think" longer… but is that real thinking and careful reasoning?
-
-To read my view on this, please check: 🔗 LINK
--->
-
 While writing this post, my brain is mostly using System 2. I am very conscious, focused, and careful of what I am phrasing. This is natural since this is not an intuitive activity; thus, my brain cannot use the automatic mode of System 1. But what if I asked an AI (i.e., an LLM) to write this post; which system does it use?
 
 ## System 1 and System 2
