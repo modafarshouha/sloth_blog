@@ -1,6 +1,13 @@
 -- Run in Supabase SQL Editor (Dashboard → SQL → New query).
 -- See docs/ANALYTICS.md for setup and CORS.
 
+-- Disable auto-exposure of future tables/sequences to the Data API.
+-- https://github.com/orgs/supabase/discussions/45329
+alter default privileges for role postgres in schema public
+	revoke select, insert, update, delete on tables from anon, authenticated, service_role;
+alter default privileges for role postgres in schema public
+	revoke usage, select on sequences from anon, authenticated, service_role;
+
 create table if not exists public.blog_post_views (
 	slug text primary key check (char_length(slug) <= 300),
 	read_count bigint not null default 0,
