@@ -8,6 +8,7 @@ import Header from '../components/Header.astro';
 import EmojiBackground from '../components/EmojiBackground.astro';
 import PostReadStats from '../components/PostReadStats.astro';
 import CitationBlock from '../components/CitationBlock.astro';
+import { AUTHOR_NAME, AUTHOR_URL } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & { postSlug?: string };
 
@@ -17,7 +18,14 @@ const postUrl = postSlug ? new URL(`blog/${postSlug}/`, Astro.site ?? 'https://m
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} image={heroImage ?? undefined} />
+		<BaseHead
+			title={title}
+			description={description}
+			image={heroImage ?? undefined}
+			type="article"
+			publishedDate={pubDate}
+			updatedDate={updatedDate}
+		/>
 		<style>
 			main {
 				width: 100%;
@@ -51,6 +59,14 @@ const postUrl = postSlug ? new URL(`blog/${postSlug}/`, Astro.site ?? 'https://m
 				color: rgb(var(--muted));
 				font-size: 0.95rem;
 			}
+			.byline {
+				margin: 0 0 0.5rem;
+				color: rgb(var(--muted));
+				font-size: 0.95rem;
+			}
+			.byline a {
+				color: inherit;
+			}
 			.last-updated-on {
 				font-style: italic;
 			}
@@ -78,6 +94,9 @@ const postUrl = postSlug ? new URL(`blog/${postSlug}/`, Astro.site ?? 'https://m
 							}
 						</div>
 						<h1>{title}</h1>
+						<p class="byline">
+							By <a href={AUTHOR_URL} rel="author noopener" target="_blank">{AUTHOR_NAME}</a>
+						</p>
 						{postSlug && <PostReadStats slug={postSlug} />}
 						<hr />
 					</div>

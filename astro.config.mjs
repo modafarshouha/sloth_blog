@@ -40,5 +40,12 @@ const base = resolveBase();
 export default defineConfig({
 	site,
 	base,
-	integrations: [mdx(), sitemap()],
+	integrations: [
+		mdx(),
+		sitemap({
+			changefreq: 'weekly',
+			priority: 0.7,
+			lastmod: new Date(),
+		}),
+	],
 });
